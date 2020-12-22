@@ -13,6 +13,10 @@ from shareplum import Office365 ###### Essencial
 
 import os
 
+import urllib.request
+
+
+
 #import sys
 ### Ignorar.
 # f = open('parrot4.pkl','rb')
@@ -33,48 +37,58 @@ senha = 'Gmjc873umac1$'
 #### Fim do alterar.
 
 
-print("TESTANDO git")
+print("Funcionando...")
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 
-driver.get("https://www.google.com")
 #print(driver.page_source)
 
-print("Fui no google e voltei brabão")
 
 ###################################################################### Início do Crawler no site do nubank!! Atenção ao QR Code.
 ####### Preparando o webdriver
 #options = webdriver.ChromeOptions() 
 #options.add_argument("user-data-dir=C:\\Users\\I\\AppData\\Local\\Google\\Chrome\\User Data") #Path to your chrome profile
-#driver = webdriver.Chrome() #executable_path="C:\\WebDrivers\\chromedriver.exe")
+driver = webdriver.Chrome() #executable_path="C:\\WebDrivers\\chromedriver.exe")
 
 ####### Indo ao site do Nubank
-#driver.get('https://app.nubank.com.br/#/login')
+driver.get('https://app.nubank.com.br/#/login')
 
 
 
 
-############### DESCOMENTAR TUDO (UMA VEZ SÓ NO CTRL / DAQUI PRA BAIXO!)
+############## DESCOMENTAR TUDO (UMA VEZ SÓ NO CTRL / DAQUI PRA BAIXO!)
 
-# #################### Vasculhando o Xpath e Fazendo Login
-# xpath_cpf= '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/md-input-container[1]/input'
-# xpath_senha = '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/md-input-container[2]/input'
-# xpath_botao = '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/button'
-# login_cpf = driver.find_element_by_xpath(xpath_cpf)
-# login_cpf.send_keys(cpf)
-# login_senha = driver.find_element_by_xpath(xpath_senha)
-# login_senha.send_keys(senha)
-# login_senha.send_keys(Keys.ENTER)
+#################### Vasculhando o Xpath e Fazendo Login
+xpath_cpf= '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/md-input-container[1]/input'
+xpath_senha = '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/md-input-container[2]/input'
+xpath_botao = '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[1]/form/button'
+login_cpf = driver.find_element_by_xpath(xpath_cpf)
+login_cpf.send_keys(cpf)
+login_senha = driver.find_element_by_xpath(xpath_senha)
+login_senha.send_keys(senha)
+login_senha.send_keys(Keys.ENTER)
 
-# #################### Sleep do QR Code. Ficar atento.
-# time.sleep(15)
 
+#################### Sleep do QR Code. Ficar atento.
+time.sleep(3)
+
+
+qr_code_xpath = '/html/body/navigation-base/div[1]/div/main/div[1]/div/div[3]/div[2]/div[1]/img'
+find_qr_code = driver.find_element_by_xpath(qr_code_xpath)
+img_src = find_qr_code.get_attribute("src")
+print(img_src)
+
+
+urllib.request.urlretrieve(img_src, "local-filename.jpg")
+
+
+#print(img)
 # #################### Coletando as informações da tabela.
 # mytable = driver.find_element_by_css_selector('#feedTable')
 # print(mytable)

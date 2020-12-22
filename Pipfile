@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 selenium = "*"
 shareplum = "*"
+display = "*"
+ipython = "*"
+pillow = "*"
 
 [dev-packages]
 
