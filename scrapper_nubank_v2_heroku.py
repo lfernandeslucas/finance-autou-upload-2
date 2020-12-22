@@ -44,7 +44,9 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), c
 
 
 driver.get("https://www.google.com")
-print(driver.page_source)
+#print(driver.page_source)
+
+print("Fui no google e voltei brabão")
 
 ###################################################################### Início do Crawler no site do nubank!! Atenção ao QR Code.
 ####### Preparando o webdriver
